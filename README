@@ -62,3 +62,18 @@ Checkout branch logic_analyzer_v0_5 for Arduino 22 support.
 
 Release: v0.12 September 6, 2013.
 
+
+/* Arduino Due adaptation  by jean-pierre Cocatrix jp@cocatrix.fr
+* Use the Due Timer library  https://github.com/ivanseidel/DueTimer
+* Sampling rate: 10MHz (or lower)
+* Channel Groups: 0 (zero) only
+* Recording Size:
+* SAM3X8E: 7168 (or lower)
+* Noise Filter: doesn't matter
+* RLE: disabled (unchecked)
+* Trigger unchecked.
+* Accurate at 1 Mhz or lower.
+* Input ports from 33 to 40 (beware: 3.3 volts max)
+* Release: v0.13 June 6, 2014.
+*/
+
