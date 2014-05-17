@@ -88,7 +88,23 @@ void captureInline2mhz() {
    */
 
 #undef INLINE_NOP
-#define INLINE_NOP		__asm__("nop\n\t""rjmp 1f\n\t""1:\n\t""rjmp 2f\n\t""2:\n\t");
+#define INLINE_NOP		__asm__("nop\n\t""rjmp 1f\n\t""1:\n\t""rjmp 2f\n\t""2:\n\t")
+
+/*
+*  Due version:  Simple loop padded
+*/
+#ifdef  _VARIANT_ARDUINO_DUE_X_
+    for (i = 0 ; i < readCount; i++) {
+      logicdata[i] = CHANPIN;
+      __asm__("nop\n\t""nop\n\t""nop\n\t""nop\n\t");
+      __asm__("nop\n\t""nop\n\t""nop\n\t""nop\n\t");
+      __asm__("nop\n\t""nop\n\t""nop\n\t""nop\n\t");
+      __asm__("nop\n\t""nop\n\t""nop\n\t""nop\n\t");
+      __asm__("nop\n\t""nop\n\t""nop\n\t""nop\n\t");
+      __asm__("nop\n\t""nop\n\t""nop\n\t");
+    }
+ 
+#else
 
   logicdata[0] = CHANPIN;
   INLINE_NOP;
@@ -1154,7 +1170,7 @@ void captureInline2mhz() {
   INLINE_NOP;
   logicdata[531] = CHANPIN;
   INLINE_NOP;
-#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) 
   logicdata[532] = CHANPIN;
   INLINE_NOP;
   logicdata[533] = CHANPIN;
@@ -2140,7 +2156,7 @@ void captureInline2mhz() {
   logicdata[1023] = CHANPIN;
   INLINE_NOP;
 #endif
-#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) 
+#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)  
   logicdata[1024] = CHANPIN;
   INLINE_NOP;
   logicdata[1025] = CHANPIN;
@@ -14433,7 +14449,7 @@ void captureInline2mhz() {
 
 
   DEBUG_OFF; /* debug timing measurement */
-
+#endif
   /* re-enable interrupts now that we're done sampling. */
   sei();
 
@@ -14449,6 +14465,7 @@ void captureInline2mhz() {
 #endif
   }
 }
+
 
 
 
